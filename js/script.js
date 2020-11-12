@@ -31,17 +31,21 @@ var questionList = [
     {
         question: "Does JS give you a migraine?",
         answers: ["Absolutely", "Of course", "I'm not a superhero", "I am only human"],
-        correct: true
+        correct: 2
     }
 ];
+var questionIndex = 0;
 
-
-console.log(questionList);
+console.log(questionList[questionIndex]);
 
 // clock/timer functions (setInterval/clearInterval)
 var timeScore = 100;
 var timeScoreDisplay = document.querySelector(".time");
 var startQ = document.querySelector("#start-quiz");
+
+var buttonBox = document.querySelector(".button-box");
+
+buttonBox.addEventListener("click", checkAnswer)
 
 function startGame() {
     document.querySelector(".welcome").classList.remove("active");
@@ -58,6 +62,11 @@ function startGame() {
 
         }
     }, 1000)
+
+    displayQuestion();
+
+    
+
 }
 
 console.log(document)
@@ -72,23 +81,59 @@ startQ.addEventListener("click", startGame);
 
 // dynamicly adding/removing questions into DOM
 
+function displayQuestion() {
+    var questionText = document.querySelector("#question");
+    var buttonElements = document.querySelectorAll(".answer");
+    console.log(buttonElements);
+    questionText.textContent = questionList[questionIndex].question;
 
-
-
-var selectedQuestions = [];
-// 10 random questions per quiz ** extra **
-function pickQuestions() {
-    // randomly # question from list
-    for (let i = 0; i < 10; i++) {
-        var randomQuestion = Math.floor(Math.random() * 24);
-        console.log(randomQuestion);
-        selectedQuestions.push(randomQuestion);
-        //add a check for duplicate questions later
+    for (let i = 0; i < buttonElements.length; i++) {
+        buttonElements[i].textContent = questionList[questionIndex].answers[i];
+        
     }
 }
 
-pickQuestions();
-console.log(selectedQuestions);
+function checkAnswer(event) {
+    console.log("woot");
+
+    if (event.target.matches("button")) {
+        console.log(event)
+        let answer = event.target.getAttribute("data-index");
+        if (answer != questionList[questionIndex].correct) {
+            timeScore -= 10;
+        }
+        questionIndex++;
+
+        if (questionIndex == questionList.length) {
+            endGame();
+            console.log("le fini");
+        }
+        else {
+            displayQuestion();
+        }
+    }
+
+
+}
+
+function endGame() {
+
+}
+
+
+// var selectedQuestions = [];
+// // 10 random questions per quiz ** extra **
+// function pickQuestions() {
+//     // randomly # question from list
+//     for (let i = 0; i < 10; i++) {
+//         var randomQuestion = Math.floor(Math.random() * 24);
+//         console.log(randomQuestion);
+//         selectedQuestions.push(randomQuestion);
+//         //add a check for duplicate questions later
+//     }
+// }
+// pickQuestions();
+// console.log(selectedQuestions);
 
 
 
