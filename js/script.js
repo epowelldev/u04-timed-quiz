@@ -44,6 +44,7 @@ var timeScoreDisplay = document.querySelector(".time");
 var startQ = document.querySelector("#start-quiz");
 
 var buttonBox = document.querySelector(".button-box");
+var scoreInterval;
 
 buttonBox.addEventListener("click", checkAnswer)
 
@@ -59,6 +60,7 @@ function startGame() {
 
         if(timeScore === 0) {
             clearInterval(scoreInterval);
+            endGame();
 
         }
     }, 1000)
@@ -117,7 +119,7 @@ function checkAnswer(event) {
 }
 
 function endGame() {
-
+    clearInterval(scoreInterval);
 }
 
 
