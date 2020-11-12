@@ -4,9 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timed Quiz</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     
+    <header>
+        <a href="highscores.html">View Highscores</a>
+        <p>Time: </p>
+    </header>
+
+    <main>
+
+        <div class="welcome active">
+            <h1>Timed Quiz Challenge!</h1>
+            <p>When you start the quiz the timer will start counting down.<br>Wrong answers take 10 seconds off the clock.<br>When you answer all 10 questions, or the clock hits 0, the quiz ends!<br>If you have a score that isn't 0, you may record your initials!</p>
+            <button>Start Quiz!</button>
+        </div>
+
+        <div class="qCard hidden">
+            <h2>Question</h2>
+            <div class="button-box">
+                <button class="answer">1. Answer</button>
+                <button class="answer">2. Answer</button>
+                <button class="answer">3. Answer</button>
+                <button class="answer">4. Answer</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="/js/script.js"></script>
 </body>
 </html>

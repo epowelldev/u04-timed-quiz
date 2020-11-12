@@ -1,0 +1,72 @@
+/* HTML tag section */
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+main {
+    width: 69vw;
+    margin: auto;
+    margin-top: 10vh;
+}
+
+h1 {
+    font-size: 27px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 1em;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 1em;
+}
+
+button {
+    background-color: blueviolet;
+    border-radius: 5px;
+    color: cornsilk;
+    margin:3px;
+}
+
+button:active {
+    background-color: darkblue;
+}
+
+/* classes */
+.welcome {
+    text-align: center;
+}
+
+.qCard {
+    margin: 1px;
+    margin-top: 15px;
+}
+
+.button-box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.hidden {
+    display:none;
+}
+
+.active {
+    display:block;
+}
+
+.answer {
+    width: 45%;
+}
