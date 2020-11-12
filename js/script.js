@@ -59,24 +59,24 @@ console.log(questionList);
 
 
 // WHEN I click the start button
-addEventListener
+//addEventListener
 
 // THEN a timer starts and I am presented with a question
-starting score 100, time counts down, wrong question -10
+//starting score 100, time counts down, wrong question -10
 
 // WHEN I answer a question
-click a button
+//click a button
 
 // THEN I am presented with another question
-delete html through DOM, repopulate html through DOM
+//delete html through DOM, repopulate html through DOM
 
 // WHEN I answer a question incorrectly
 // THEN time is subtracted from the clock
--10 for incorrect
+//-10 for incorrect
 
 // WHEN all questions are answered or the timer reaches 0
-while time != 0 continue game?
-if time = 0, then end game
+//while time != 0 continue game?
+//if time = 0, then end game
 
 // THEN the game is over
 
@@ -85,4 +85,4 @@ if time = 0, then end game
 
 
 // THEN I can save my initials and score
-add form for initials for high score
+//add form for initials for high score
