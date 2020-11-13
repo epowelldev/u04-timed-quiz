@@ -11,12 +11,12 @@
     
     <header>
         <a href="highscores.html">View Highscores</a>
-        <p class="time">Time: 100</p>
+        <p class="time">Time: 50</p>
     </header>
 
     <main>
 
-        <div class="welcome active">
+        <div class="welcome">
             <h1>Timed Quiz Challenge!</h1>
             <p>When you start the quiz the timer will start counting down.<br>Wrong answers take 10 seconds off the clock.<br>When you answer all 10 questions, or the clock hits 0, the quiz ends!<br>If you have a score that isn't 0, you may record your initials!</p>
             <button id="start-quiz">Start Quiz!</button>
@@ -30,6 +30,24 @@
                 <button class="answer" data-index="2">3. Answer</button>
                 <button class="answer" data-index="3">4. Answer</button>
             </div>
+        </div>
+
+        <div class="highscore-entry hidden">
+            <h1>THE GAME IS OVER</h1>
+            <p>Submit your initials to be on the Highscores!</p>
+            <form>
+                <input type="text" id="initials" placeholder="Enter your Initials" name="initials"><br>
+                <button id="submit-highscore">Submit</button>
+                <button class="reset">Reset</button>
+            </form>
+        </div>
+
+        <div class="failure hidden">
+            <h1>YOU FAILED</h1>
+            <p>To achive a score.</p>
+            <form>
+                <button class="reset">Reset</button>
+            </form>
         </div>
 
     </main>

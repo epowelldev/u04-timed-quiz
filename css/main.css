@@ -16,6 +16,7 @@ h1 {
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 1em;
+    text-align: center;
 }
 
 h2 {
@@ -41,6 +42,11 @@ button:active {
     background-color: darkblue;
 }
 
+/* IDs */
+#initials {
+    text-align: center;
+}
+
 /* classes */
 .welcome {
     text-align: center;
@@ -59,12 +65,20 @@ button:active {
     justify-content: space-evenly;
 }
 
-.hidden {
-    display:none;
+.highscore-entry {
+    text-align: center;
+    width: 227px;
+    margin: auto;
 }
 
-.active {
-    display:block;
+.failure {
+    text-align: center;
+    width: 227px;
+    margin: auto;
+}
+
+.hidden {
+    display:none;
 }
 
 .answer {

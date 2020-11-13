@@ -1,12 +1,6 @@
 //JS file for timed quiz, u04 homework
 
-
-// THINGS I WILL NEED
 // vars to hold questions/answers
-// 25 question pool, 10 random questions per quiz ** extra **
-//question arrays are as follows: ["Question", "Answer1", "Answer2", "Answer3", "Answer4", "Correct Answer"]
-
-
 var questionList = [
     {
         question: "What is a good source of protien?", 
@@ -15,7 +9,7 @@ var questionList = [
     },
     {
         question: "What is the best source of hydration?",
-        answers: ["water", "Coffee", "Pepsi", "Coke"],
+        answers: ["Water", "Coffee", "Pepsi", "Coke"],
         correct: 0
     },
     {
@@ -24,65 +18,65 @@ var questionList = [
         correct: 1
     },
     {
-        question: "Is JavaScript fun?",
-        answers: ["Sometimes", "No", "Yes", "Fun is relitive"],
+        question: "This is extremly hot.",
+        answers: ["Ice", "LOX", "RP-1", "Lava"],
         correct: 3
     },
     {
-        question: "Does JS give you a migraine?",
-        answers: ["Absolutely", "Of course", "I'm not a superhero", "I am only human"],
+        question: "This is NOT a CSS framework:",
+        answers: ["Bootstrap", "Tailwind", "Santa", "Bulma"],
         correct: 2
     }
 ];
-var questionIndex = 0;
 
+//Pointer to looping through object questionList
+var questionIndex = 0;
 console.log(questionList[questionIndex]);
 
+var timeScore = 50;
+
 // clock/timer functions (setInterval/clearInterval)
-var timeScore = 100;
 var timeScoreDisplay = document.querySelector(".time");
 var startQ = document.querySelector("#start-quiz");
-
 var buttonBox = document.querySelector(".button-box");
+var submitScore = document.querySelector("#submit-highscore");
+var resetGameBTN = document.querySelector(".reset");
 var scoreInterval;
 
-buttonBox.addEventListener("click", checkAnswer)
 
+// GAME START THROUGH CLICK
+// event handler for click (to start)
+startQ.addEventListener("click", startGame);
+// event handler for clicking answer buttons to check the awnser
+buttonBox.addEventListener("click", checkAnswer);
+//event handler for submitting highscore
+submitScore.addEventListener("click", submitHighscore);
+//reset game event handler
+resetGameBTN.addEventListener("click", resetGame);
+
+//FUNCTIONS
+
+//Startgame, event click to start the game, general game loop through `display.Question`
 function startGame() {
-    document.querySelector(".welcome").classList.remove("active");
-    document.querySelector(".welcome").classList.add("hidden");
-    document.querySelector(".qCard").classList.remove("hidden");
+    document.querySelector(".welcome").classList.toggle("hidden");
+    document.querySelector(".qCard").classList.toggle("hidden");
 
 
-    var scoreInterval = setInterval(function() {
+    scoreInterval = setInterval(function() {
         timeScore--;
         timeScoreDisplay.textContent = "Time: " + timeScore;
 
         if(timeScore === 0) {
-            clearInterval(scoreInterval);
             endGame();
-
         }
     }, 1000)
 
     displayQuestion();
 
-    
-
 }
 
-console.log(document)
-
-// forums for highscore (or prompt)
-// event handler for click (to start)
-startQ.addEventListener("click", startGame);
-
-// checks for correct/incorrect
-// if `clicked answer` != questonNumber[5]
-//  -10 seconds
 
 // dynamicly adding/removing questions into DOM
-
 function displayQuestion() {
     var questionText = document.querySelector("#question");
     var buttonElements = document.querySelectorAll(".answer");
@@ -91,10 +85,12 @@ function displayQuestion() {
 
     for (let i = 0; i < buttonElements.length; i++) {
         buttonElements[i].textContent = questionList[questionIndex].answers[i];
-        
     }
 }
 
+// checks for correct/incorrect
+// if `clicked answer` != questonNumber[5]
+//  -10 seconds
 function checkAnswer(event) {
     console.log("woot");
 
@@ -103,43 +99,51 @@ function checkAnswer(event) {
         let answer = event.target.getAttribute("data-index");
         if (answer != questionList[questionIndex].correct) {
             timeScore -= 10;
+            if (timeScore < 1) timeScore = 0;
+            console.log("INCORRECT");
+        } else {
+            console.log("CORRECT");
         }
+
         questionIndex++;
 
         if (questionIndex == questionList.length) {
             endGame();
-            console.log("le fini");
-        }
-        else {
+        } else {
             displayQuestion();
         }
     }
-
-
+timeScoreDisplay.textContent = "Time: " + timeScore;
 }
 
+// ENDS the game, hides questions and shows the Highscore Form IF you produced a score
+// if you did not produce a score (timeScore==0) You failed and don't get to submit your initials
 function endGame() {
+    console.log("LE FINI");
     clearInterval(scoreInterval);
+    questionIndex = 0;
+    if (timeScore == 0) {
+        document.querySelector(".qCard").classList.toggle("hidden");
+        document.querySelector(".failure").classList.toggle("hidden");
+    } else {
+        document.querySelector(".qCard").classList.toggle("hidden");
+        document.querySelector(".highscore-entry").classList.toggle("hidden");
+    }
 }
 
+function resetGame() {
+    document.querySelector(".failure").classList.toggle("hidden");
+    document.querySelector(".highscore-entry").classList.toggle("hidden");
+    document.querySelector(".welcome").classList.toggle("hidden");
+    // timeScore = 50;
+    // timeScoreDisplay.textContent = "Time: " + timeScore;
+}
 
-// var selectedQuestions = [];
-// // 10 random questions per quiz ** extra **
-// function pickQuestions() {
-//     // randomly # question from list
-//     for (let i = 0; i < 10; i++) {
-//         var randomQuestion = Math.floor(Math.random() * 24);
-//         console.log(randomQuestion);
-//         selectedQuestions.push(randomQuestion);
-//         //add a check for duplicate questions later
-//     }
-// }
-// pickQuestions();
-// console.log(selectedQuestions);
-
-
-
-
+// forums for highscore (or prompt)
+function submitHighscore(event) {
+    event.preventDefault();
+    console.log("SUBMITTED YOUR HIGHSCORE");
+}
 
 
 
@@ -169,9 +173,10 @@ function endGame() {
 
 // THEN the game is over
 
-
 // WHEN the game is over
 
 
 // THEN I can save my initials and score
 //add form for initials for high score
+
+console.log(resetGameBTN);
