@@ -35,13 +35,15 @@ console.log(questionList[questionIndex]);
 
 var timeScore = 50;
 
-// clock/timer functions (setInterval/clearInterval)
 var timeScoreDisplay = document.querySelector(".time");
 var startQ = document.querySelector("#start-quiz");
 var buttonBox = document.querySelector(".button-box");
 var submitScore = document.querySelector("#submit-highscore");
 var resetGameBTN = document.querySelector(".reset");
 var scoreInterval;
+
+var completedQuestionIcons = document.querySelectorAll(".completed-question-icon");
+console.log(completedQuestionIcons);
 
 
 // GAME START THROUGH CLICK
@@ -101,8 +103,11 @@ function checkAnswer(event) {
             timeScore -= 10;
             if (timeScore < 1) timeScore = 0;
             console.log("INCORRECT");
+            completedQuestionIcons[questionIndex].classList.toggle("incorrect");
         } else {
             console.log("CORRECT");
+            completedQuestionIcons[questionIndex].classList.toggle("correct");
+
         }
 
         questionIndex++;
@@ -113,7 +118,9 @@ function checkAnswer(event) {
             displayQuestion();
         }
     }
+
 timeScoreDisplay.textContent = "Time: " + timeScore;
+
 }
 
 // ENDS the game, hides questions and shows the Highscore Form IF you produced a score
@@ -178,5 +185,3 @@ function submitHighscore(event) {
 
 // THEN I can save my initials and score
 //add form for initials for high score
-
-console.log(resetGameBTN);

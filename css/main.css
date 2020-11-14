@@ -1,8 +1,9 @@
 /* HTML tag section */
 header {
-    display: flex;
-    justify-content: space-between;
     margin: 10px;
+    justify-content: space-between;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 main {
@@ -12,6 +13,7 @@ main {
 }
 
 h1 {
+    margin-top: 15px;
     font-size: 27px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
@@ -20,10 +22,24 @@ h1 {
 }
 
 h2 {
+    text-align: center;
     font-size: 20px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     width: 100%;
+    margin-bottom: 20px;
+}
+
+h3 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    margin-top: 15px;
+    transition: 0s;
+    color: red;
+    opacity: 0%;
 }
 
 p {
@@ -48,6 +64,26 @@ button:active {
 }
 
 /* classes */
+.icon-box {
+    display: flex;
+    width:100%;
+    justify-content: center;
+}
+
+.completed-question-icon {
+    margin: 2px;
+    width: 10px;
+    height: 10px;
+}
+
+.correct {
+    background-color: green;
+}
+
+.incorrect {
+    background-color: red;
+}
+
 .welcome {
     text-align: center;
 }
