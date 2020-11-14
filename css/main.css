@@ -58,6 +58,10 @@ button:active {
     background-color: darkblue;
 }
 
+ol {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 /* IDs */
 #initials {
     text-align: center;

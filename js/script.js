@@ -107,7 +107,6 @@ function checkAnswer(event) {
         } else {
             console.log("CORRECT");
             completedQuestionIcons[questionIndex].classList.toggle("correct");
-
         }
 
         questionIndex++;
@@ -151,7 +150,6 @@ function submitHighscore(event) {
     event.preventDefault();
     console.log("SUBMITTED YOUR HIGHSCORE");
 }
-
 
 
 
