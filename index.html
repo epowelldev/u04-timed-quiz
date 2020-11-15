@@ -10,7 +10,7 @@
 <body>
     
     <header>
-            <a href="highscores.html">View Highscores</a>
+            <a href="#" class="view-scores">View Highscores</a>
             <p class="time">Time: 50</p>
     </header>
 
@@ -46,7 +46,7 @@
             <h1>THE GAME IS OVER</h1>
             <p>Submit your initials to be on the Highscores!</p>
             <form>
-                <input type="text" id="initials" placeholder="Enter your Initials" name="initials"><br>
+                <input type="text" placeholder="Enter your Initials" name="initials" id="initials"><br>
                 <button id="submit-highscore">Submit</button>
                 <button class="reset">Reset</button>
             </form>
@@ -58,6 +58,22 @@
             <form>
                 <button class="reset">Reset</button>
             </form>
+        </div>
+
+        <div class="highscores hidden">
+            <h1>HIGHSCORES</h1>
+            <ol id="high-scores">
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+                <li><div class="hs-initials"></div><div class="hs-score"></div></li>
+            </ol>
         </div>
 
     </main>

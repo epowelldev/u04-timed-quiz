@@ -60,6 +60,17 @@ button:active {
 
 ol {
     font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    width:200px;
+    margin: auto;
+}
+
+li {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    text-align: center;
 }
 
 /* IDs */
@@ -108,6 +119,16 @@ ol {
 .highscore-entry {
     text-align: center;
     width: 227px;
+    margin: auto;
+}
+
+.hs-initials {
+    width: 75px;
+    margin: auto;
+}
+
+.hs-score {
+    width: 75px;
     margin: auto;
 }
 

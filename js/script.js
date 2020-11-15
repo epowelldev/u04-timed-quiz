@@ -29,39 +29,61 @@ var questionList = [
     }
 ];
 
+//starting highScoreList & highScore vars
+var highScoreList = [];
+
+if ( JSON.parse(localStorage.getItem("highScoreList")) ) {
+    highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
+}
+
+var highScoreElement = document.querySelectorAll(".hs-score");
+var highScoreInitials = document.querySelectorAll(".hs-initials");
+
+
 //Pointer to looping through object questionList
 var questionIndex = 0;
-console.log(questionList[questionIndex]);
 
 var timeScore = 50;
-
 var timeScoreDisplay = document.querySelector(".time");
 var startQ = document.querySelector("#start-quiz");
 var buttonBox = document.querySelector(".button-box");
 var submitScore = document.querySelector("#submit-highscore");
-var resetGameBTN = document.querySelector(".reset");
+var resetGameBTN = document.querySelectorAll(".reset");
+var viewHS = document.querySelector(".view-scores");
 var scoreInterval;
-
 var completedQuestionIcons = document.querySelectorAll(".completed-question-icon");
-console.log(completedQuestionIcons);
+
+// vars for each major display block (for toggling hidden)
+var welcomeDisplay = document.querySelector(".welcome");
+var qCardDisplay = document.querySelector(".qCard");
+var failureDisplay = document.querySelector(".failure");
+var hsEntryDisplay = document.querySelector(".highscore-entry");
+var hsListDisplay = document.querySelector(".highscores");
 
 
 // GAME START THROUGH CLICK
 // event handler for click (to start)
 startQ.addEventListener("click", startGame);
+
 // event handler for clicking answer buttons to check the awnser
 buttonBox.addEventListener("click", checkAnswer);
+
 //event handler for submitting highscore
 submitScore.addEventListener("click", submitHighscore);
+
 //reset game event handler
-resetGameBTN.addEventListener("click", resetGame);
+resetGameBTN[0].addEventListener("click", resetGame);
+resetGameBTN[1].addEventListener("click", resetGame);
+
+// event handler for viewing highscores
+viewHS.addEventListener("click", renderHighscores);
 
 //FUNCTIONS
 
 //Startgame, event click to start the game, general game loop through `display.Question`
 function startGame() {
-    document.querySelector(".welcome").classList.toggle("hidden");
-    document.querySelector(".qCard").classList.toggle("hidden");
+    welcomeDisplay.classList.toggle("hidden");
+    qCardDisplay.classList.toggle("hidden");
 
 
     scoreInterval = setInterval(function() {
@@ -94,7 +116,6 @@ function displayQuestion() {
 // if `clicked answer` != questonNumber[5]
 //  -10 seconds
 function checkAnswer(event) {
-    console.log("woot");
 
     if (event.target.matches("button")) {
         console.log(event)
@@ -125,61 +146,155 @@ timeScoreDisplay.textContent = "Time: " + timeScore;
 // ENDS the game, hides questions and shows the Highscore Form IF you produced a score
 // if you did not produce a score (timeScore==0) You failed and don't get to submit your initials
 function endGame() {
-    console.log("LE FINI");
+    // console.log("LE FINI");
     clearInterval(scoreInterval);
     questionIndex = 0;
     if (timeScore == 0) {
-        document.querySelector(".qCard").classList.toggle("hidden");
-        document.querySelector(".failure").classList.toggle("hidden");
+        qCardDisplay.classList.toggle("hidden");
+        failureDisplay.classList.toggle("hidden");
     } else {
-        document.querySelector(".qCard").classList.toggle("hidden");
-        document.querySelector(".highscore-entry").classList.toggle("hidden");
+        qCardDisplay.classList.toggle("hidden");
+        hsEntryDisplay.classList.toggle("hidden");
     }
 }
 
-function resetGame() {
-    document.querySelector(".failure").classList.toggle("hidden");
-    document.querySelector(".highscore-entry").classList.toggle("hidden");
-    document.querySelector(".welcome").classList.toggle("hidden");
-    // timeScore = 50;
-    // timeScoreDisplay.textContent = "Time: " + timeScore;
+function resetGame(event) {
+    event.preventDefault();
+
+    if (event.target.matches("button")) {
+
+        if ( !(failureDisplay.classList.contains("hidden")) ) {
+            failureDisplay.classList.toggle("hidden");
+        }
+
+        if ( !(hsEntryDisplay.classList.contains("hidden")) ) {
+            hsEntryDisplay.classList.toggle("hidden");
+        }
+        
+        if (welcomeDisplay.classList.contains("hidden")) {
+            welcomeDisplay.classList.toggle("hidden");
+        }
+
+        for (let i = 0; i < completedQuestionIcons.length; i++) {
+            completedQuestionIcons[i].classList.remove("correct");
+            completedQuestionIcons[i].classList.remove("incorrect");
+        }
+
+        if (document.querySelector("#submit-highscore").classList.contains("hidden")) {
+            document.querySelector("#submit-highscore").classList.remove("hidden");
+        }
+
+        timeScore = 50;
+        timeScoreDisplay.textContent = "Time: " + timeScore;
+
+    }
+
 }
 
 // forums for highscore (or prompt)
 function submitHighscore(event) {
-    event.preventDefault();
-    console.log("SUBMITTED YOUR HIGHSCORE");
+    if (event.target.matches("button")) {
+        event.preventDefault();
+        var initialsInput = document.querySelector("#initials");
+        var initialsText = initialsInput.value.trim();
+        var scoreAchived = timeScore;
+        var newHighScore = {
+            initials: initialsText,
+            score: scoreAchived,
+        };
+
+        console.log(newHighScore);
+
+        //adds the newly submitted highscore to the list, & stores it locally
+        highScoreList.push(newHighScore);
+        localStorage.setItem("highScoreList", JSON.stringify(highScoreList));
+
+        //hides submit button and logs confirmation of submission
+        document.querySelector("#submit-highscore").classList.add("hidden");
+        console.log("SUBMITTED YOUR HIGHSCORE");
+    }
 }
 
+// Renders highscores onto the page
+function renderHighscores(event) {
+    if (event.target.matches("a")) {
 
+        if (viewHS.textContent == "View Highscores") {
 
+            //clears timer, soft 'reset'
+            clearInterval(scoreInterval);
+            timeScore = 50;
+            timeScoreDisplay.textContent = "Time: " + timeScore;
+            questionIndex = 0;            
 
+            hsListDisplay.classList.toggle("hidden");
 
+            if ( !(failureDisplay.classList.contains("hidden")) ) {
+                failureDisplay.classList.toggle("hidden");
+            }
+    
+            if ( !(hsEntryDisplay.classList.contains("hidden")) ) {
+                hsEntryDisplay.classList.toggle("hidden");
+            }
 
-// WHEN I click the start button
-//addEventListener
+            if ( !(welcomeDisplay.classList.contains("hidden")) ) {
+                welcomeDisplay.classList.toggle("hidden");
+            }
 
-// THEN a timer starts and I am presented with a question
-//starting score 100, time counts down, wrong question -10
+            if ( !(qCardDisplay.classList.contains("hidden")) ) {
+                qCardDisplay.classList.toggle("hidden");
+            }
 
-// WHEN I answer a question
-//click a button
+            for (let i = 0; i < completedQuestionIcons.length; i++) {
+                completedQuestionIcons[i].classList.remove("correct");
+                completedQuestionIcons[i].classList.remove("incorrect");
+            }
 
-// THEN I am presented with another question
-//delete html through DOM, repopulate html through DOM
+            if (highScoreList != "") {
+                //sets the `storedHighScore` from local storage
+                highScoreList = JSON.parse(localStorage.getItem("highScoreList"));
 
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-//-10 for incorrect
+                //sorts `highScoreList` object in decending order by score value
+                highScoreList.sort(function(a, b) {
+                    return b.score - a.score;
+                });
 
-// WHEN all questions are answered or the timer reaches 0
-//while time != 0 continue game?
-//if time = 0, then end game
+                if (highScoreList.length > 10) {
+                    highScoreList = highScoreList.slice(0, 10)
+                }
 
-// THEN the game is over
+                //loops over the arrays of initials, scores, and stored data to display highscores
+                for (let i = 0; i < highScoreList.length; i++) {
+                    highScoreElement[i].textContent = highScoreList[i].score;
+                    highScoreInitials[i].textContent = highScoreList[i].initials;
+                }
+            }
+            viewHS.textContent = "Hide Highscores";
 
-// WHEN the game is over
+        } else { 
 
+            hsListDisplay.classList.toggle("hidden");
+            viewHS.textContent = "View Highscores";
+            
+            if ( !(failureDisplay.classList.contains("hidden")) ) {
+                failureDisplay.classList.toggle("hidden");
+            }
+    
+            if ( !(hsEntryDisplay.classList.contains("hidden")) ) {
+                hsEntryDisplay.classList.toggle("hidden");
+            }
 
-// THEN I can save my initials and score
-//add form for initials for high score
+            if ( (welcomeDisplay.classList.contains("hidden")) ) {
+                welcomeDisplay.classList.remove("hidden");
+            }
+
+            if ( !(qCardDisplay.classList.contains("hidden")) ) {
+                qCardDisplay.classList.toggle("hidden");
+            }
+            
+        }
+
+    }
+
+}
+
